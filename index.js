@@ -84,15 +84,22 @@ if(!totalSeats)
 
 });
 });
+
+
 app.get("/bookings/:userId", (req, res) => {
-  const userId = req.body.userId;
+  const userId = req.params.userId;
   const data = JSON.parse(fs.readFileSync("data.txt", "utf-8"));
-  res.status(200).send(data.users[userId - 1].bookings);
+  res.status(200).json(data.users[userId - 1].bookings);
 });
 app.get("/bookings/:userId/:bookingId", (req, res) => {
-  const userId = req.body.userId;
-  const bookingId = req.body.bookingId;
+  const userId = req.params.userId;
+  const bookingId = parseInt(req.params.bookingId);
   const data = JSON.parse(fs.readFileSync("data.txt", "utf-8"));
+  const bookings=data.users[userId-1].bookings.find((b)=> b.bookingID===bookingId)
+  if(bookings===undefined)
+    return res.status(401).json({ "message": "Booking not found" });
+
+  return res.json(bookings);
 });
 app.put("/bookings/:userId/:bookingId", (req, res) => {});
 app.delete("/bookings/:userId/:bookingId", (req, res) => {});
