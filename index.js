@@ -19,7 +19,7 @@ app.post("/signup", (req, res) => {
     email: email,
     bookings: [],
   });
-  fs.writeFileSync("data.txt", JSON.stringify(data));
+  fs.writeFileSync("data.txt", JSON.stringify(data,null,2));
   res.status(201).json({
     message: "User created Successfully",
     userId: userId,
@@ -49,7 +49,7 @@ app.post("/bookings/:userId", (req, res) => {
   const userId = req.params.userId;
   const movieId = req.body.movieId;
   const showId = req.body.showId;
-  const seats = req.body.seats;
+  const seats = parseInt(req.body.seats);
   const data = JSON.parse(fs.readFileSync("data.txt", "utf-8"));
   const show=(data.movies[movieId-1].shows.find((p)=> p.showId==showId));
   let totalSeats=false;
@@ -58,7 +58,7 @@ app.post("/bookings/:userId", (req, res) => {
     totalSeats=true;
     total_seats_price= (show.pricePerSeat)*seats;
   }
- else
+if(!totalSeats)
    return res.json({ "message": "Not enough seats available" });
 
   const bookingID = Math.floor(Math.random()*(2000-1000 +1)+1000);
@@ -73,7 +73,7 @@ app.post("/bookings/:userId", (req, res) => {
     status : "Confirmed",
     BookingDate :bookingDate
   });
-  fs.writeFileSync("data.txt",JSON.stringify(data));
+  fs.writeFileSync("data.txt",JSON.stringify(data,null,2));
    return res.status(201).json({
   message: "Booking successful",
   bookingId: bookingID,
