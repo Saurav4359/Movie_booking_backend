@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "crete-react-app",
   "private": true,
   "version": "0.0.0",
@@ -28,19 +27,5 @@
   },
   "overrides": {
     "vite": "npm:rolldown-vite@7.1.14"
-=======
-  "name": "movie_booking",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.1.0"
->>>>>>> 8e5681ed2458b9421c0d3a0c391ef9bd78ff6fcb
   }
 }
